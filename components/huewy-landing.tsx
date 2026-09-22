@@ -220,6 +220,8 @@ export default function HuewyLanding() {
   const [menuOpen, setMenuOpen] = useState(false);
  const [waitlistOpen, setWaitlistOpen] = useState(false);
  const [waitlistSubmitted, setWaitlistSubmitted] = useState(false);
+ const [waitlistSubmitting, setWaitlistSubmitting] = useState(false);
+ const [waitlistError, setWaitlistError] = useState<string | null>(null);
  const [waitlist, setWaitlist] = useState({ firstName: "", lastName: "", company: "", email: "", message: "" });
  const waitlistDialogRef = useRef<HTMLDivElement>(null);
  const waitlistCloseRef = useRef<HTMLButtonElement>(null);
@@ -229,6 +231,8 @@ export default function HuewyLanding() {
   const [requestEmail, setRequestEmail] = useState("");
   const [platformRequest, setPlatformRequest] = useState("");
   const [requestSent, setRequestSent] = useState(false);
+  const [requestSubmitting, setRequestSubmitting] = useState(false);
+  const [requestError, setRequestError] = useState<string | null>(null);
   useEffect(() => {
     if (!waitlistOpen) return;
     waitlistCloseRef.current?.focus();
@@ -246,16 +250,62 @@ export default function HuewyLanding() {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [waitlistOpen]);
 
-  const openWaitlist = () => { setWaitlistSubmitted(false); setWaitlistOpen(true); };
+  const LOOPS_FORM_URL = "https://app.loops.so/api/newsletter-form/cmucdscsa0zff0izrsbi29xuh";
+
+  const openWaitlist = () => { setWaitlistSubmitted(false); setWaitlistError(null); setWaitlistOpen(true); };
   const closeWaitlist = () => setWaitlistOpen(false);
-  const submitWaitlist = (event: React.FormEvent) => {
+  const submitWaitlist = async (event: React.FormEvent) => {
     event.preventDefault();
-    console.log("[v0] Waitlist submission:", waitlist);
-    setWaitlistSubmitted(true);
+    if (waitlistSubmitting) return;
+    setWaitlistError(null);
+    setWaitlistSubmitting(true);
+    try {
+      const body = new URLSearchParams();
+      body.set("email", waitlist.email);
+      if (waitlist.firstName) body.set("firstName", waitlist.firstName);
+      if (waitlist.lastName) body.set("lastName", waitlist.lastName);
+      if (waitlist.company) body.set("company", waitlist.company);
+      if (waitlist.message) body.set("notes", waitlist.message);
+      body.set("formSource", "site-waitlist");
+      const res = await fetch(LOOPS_FORM_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.toString(),
+      });
+      if (!res.ok) throw new Error(`Signup failed (${res.status}). Please try again.`);
+      setWaitlistSubmitted(true);
+    } catch (err) {
+      setWaitlistError(err instanceof Error ? err.message : "Signup failed. Please try again.");
+    } finally {
+      setWaitlistSubmitting(false);
+    }
   };
-  const submitPlatformRequest = (e: React.FormEvent) => {
+  const submitPlatformRequest = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (platformRequest.trim()) setRequestSent(true);
+    if (requestSubmitting) return;
+    if (!platformRequest.trim()) return;
+    setRequestError(null);
+    setRequestSubmitting(true);
+    try {
+      const body = new URLSearchParams();
+      body.set("email", requestEmail);
+      if (requestFirstName) body.set("firstName", requestFirstName);
+      if (requestLastName) body.set("lastName", requestLastName);
+      body.set("company", platformRequest);
+      body.set("notes", `Platform request: ${platformRequest}`);
+      body.set("formSource", "platform-request");
+      const res = await fetch(LOOPS_FORM_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.toString(),
+      });
+      if (!res.ok) throw new Error(`Submission failed (${res.status}). Please try again.`);
+      setRequestSent(true);
+    } catch (err) {
+      setRequestError(err instanceof Error ? err.message : "Submission failed. Please try again.");
+    } finally {
+      setRequestSubmitting(false);
+    }
   };
   return (
     <>
@@ -869,7 +919,8 @@ src={HUEWY_ICON}
                   <label>Company <span>(optional)</span><input value={waitlist.company} onChange={(e) => setWaitlist({ ...waitlist, company: e.target.value })} /></label>
                   <label>Business email <input required type="email" value={waitlist.email} onChange={(e) => setWaitlist({ ...waitlist, email: e.target.value })} /></label>
                   <label>Feedback or questions <span>(optional)</span><textarea rows={4} value={waitlist.message} onChange={(e) => setWaitlist({ ...waitlist, message: e.target.value })} /></label>
-                  <button className="button dark-button" type="submit">Join the waitlist</button>
+                  {waitlistError && <p role="alert" style={{ color: "#c53030", fontSize: 13, margin: "0 0 8px" }}>{waitlistError}</p>}
+                  <button className="button dark-button" type="submit" disabled={waitlistSubmitting}>{waitlistSubmitting ? "Joining…" : "Join the waitlist"}</button>
                 </form>
               )}
             </div>
@@ -965,8 +1016,9 @@ src={HUEWY_ICON}
                     onChange={(e) => setPlatformRequest(e.target.value)}
                     required
                   />
-                  <button className="button dark-button" type="submit">
-                    Submit suggestion <ArrowRight />
+                  {requestError && <p role="alert" style={{ color: "#c53030", fontSize: 13, margin: "0 0 8px" }}>{requestError}</p>}
+                  <button className="button dark-button" type="submit" disabled={requestSubmitting}>
+                    {requestSubmitting ? "Submitting…" : <>Submit suggestion <ArrowRight /></>}
                   </button>
                 </form>
               )}
