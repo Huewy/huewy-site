@@ -216,7 +216,7 @@ function ProductPreview() {
   );
 }
 
-export default function HuewyLanding() {
+export default function HuewyLanding({ waitlistCount }: { waitlistCount: number }) {
   const [menuOpen, setMenuOpen] = useState(false);
  const [waitlistOpen, setWaitlistOpen] = useState(false);
  const [waitlistSubmitted, setWaitlistSubmitted] = useState(false);
@@ -610,7 +610,7 @@ export default function HuewyLanding() {
                 processes.
   </p>
   <div className="hero-waitlist-row">
-  <span>Join <span className="text-[#7B61FF]">247</span> business owners</span>
+  <span>{waitlistCount >= 50 ? <>Join <span className="text-[#7B61FF]">{waitlistCount.toLocaleString("en-AU")}</span> business owners</> : <>Be one of the first to join</>}</span>
   <button className="button primary" type="button" onClick={openWaitlist}>
   Join the waitlist <ArrowRight />
   </button>
@@ -886,7 +886,7 @@ src={HUEWY_ICON}
             <p>
               Huewy is opening early access to a small group of business owners.
             </p>
-            <div className="waitlist-count">Join <span className="text-[#7B61FF]">247</span> business owners on the waitlist</div>
+            <div className="waitlist-count">{waitlistCount >= 50 ? <>Join <span className="text-[#7B61FF]">{waitlistCount.toLocaleString("en-AU")}</span> business owners on the waitlist</> : <>Be one of the first businesses on the waitlist.</>}</div>
             <button className="button dark-button waitlist-open-button" type="button" onClick={openWaitlist}>
               Join the waitlist <ArrowRight />
             </button>
