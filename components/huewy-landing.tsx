@@ -13,6 +13,7 @@ import {
   MessageSquareText,
 } from "lucide-react";
 import { HowHuewyWorks } from "./how-huewy-works";
+import { joinWaitlist } from "@/app/actions/waitlist";
 
 const HUEWY_WORDMARK = "/brand/huewy-wordmark-large.png";
 const HUEWY_ICON = "/brand/huewy-icon.png";
@@ -273,6 +274,10 @@ export default function HuewyLanding({ waitlistCount }: { waitlistCount: number 
         body: body.toString(),
       });
       if (!res.ok) throw new Error(`Signup failed (${res.status}). Please try again.`);
+      const fd = new FormData();
+      fd.set("email", waitlist.email);
+      fd.set("source", "site-waitlist");
+      joinWaitlist(null, fd);
       setWaitlistSubmitted(true);
     } catch (err) {
       setWaitlistError(err instanceof Error ? err.message : "Signup failed. Please try again.");
