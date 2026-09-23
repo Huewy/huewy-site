@@ -274,10 +274,15 @@ export default function HuewyLanding({ waitlistCount }: { waitlistCount: number 
         body: body.toString(),
       });
       if (!res.ok) throw new Error(`Signup failed (${res.status}). Please try again.`);
-      const fd = new FormData();
-      fd.set("email", waitlist.email);
-      fd.set("source", "site-waitlist");
-      joinWaitlist(null, fd);
+      try {
+        const fd = new FormData();
+        fd.set("email", waitlist.email);
+        fd.set("source", "site-waitlist");
+        const result = await joinWaitlist(null, fd);
+        if (result && !result.ok) console.error("[waitlist] Supabase insert failed:", result.error);
+      } catch (supaErr) {
+        console.error("[waitlist] Supabase insert threw:", supaErr);
+      }
       setWaitlistSubmitted(true);
     } catch (err) {
       setWaitlistError(err instanceof Error ? err.message : "Signup failed. Please try again.");
