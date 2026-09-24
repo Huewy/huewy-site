@@ -6,26 +6,30 @@ const nunito = Nunito({ subsets: ['latin'], variable: '--font-nunito' })
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Huewy — Unfair review, argued properly.',
-  description: 'Huewy helps business owners make stronger, more grounded requests to remove unfair Google reviews.',
-  generator: 'v0.app',
+  title: "Huewy — Don't report it. Argue it.",
+  description:
+    'A Chrome extension that fills Google\'s review-removal form, drafts the argument, and tracks what happens next. Built for Australian small businesses.',
+  metadataBase: new URL('https://huewy.com'),
   icons: {
     icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
+      { url: '/favicon.ico' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
     ],
-    apple: '/apple-icon.png',
+    apple: '/apple-touch-icon.png',
   },
+  manifest: '/site.webmanifest',
+  openGraph: {
+    title: "Huewy — Don't report it. Argue it.",
+    description:
+      "Fills Google's review-removal form, drafts the argument, tracks the outcome.",
+    url: 'https://huewy.com',
+    siteName: 'Huewy',
+    images: [{ url: '/og.png', width: 1200, height: 630 }],
+    locale: 'en_AU',
+    type: 'website',
+  },
+  twitter: { card: 'summary_large_image', images: ['/og.png'] },
 }
 
 export const viewport: Viewport = {
