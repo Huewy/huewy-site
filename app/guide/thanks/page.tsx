@@ -1,3 +1,10 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Your guide is ready — Huewy",
+  robots: { index: false },
+};
+
 export default function GuideThanks() {
   return (
     <main
