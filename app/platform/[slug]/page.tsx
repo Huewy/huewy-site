@@ -16,4 +16,4 @@ export default function PlatformPage({ params }: { params: Promise<{ slug: strin
 
 export function generateStaticParams() { return Object.keys(platformData).map(slug => ({ slug })) }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) { const { slug } = await params; const platform = platformData[slug] ?? platformData.google; return { title: `${platform.name} review help | Huewy`, description: `See how Huewy helps you make a clear, policy-backed case about an unfair ${platform.name} review.` } }
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) { const { slug } = await params; const platform = platformData[slug] ?? platformData.google; return { title: `${platform.name} review help | Huewy`, description: `See how Huewy helps you make a clear, policy-backed case about an unfair ${platform.name} review.`, robots: { index: false, follow: false } } }

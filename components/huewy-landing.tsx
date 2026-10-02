@@ -633,20 +633,31 @@ export default function HuewyLanding({ waitlistCount }: { waitlistCount: number 
                 className="hero-platforms"
                 aria-label="Platforms Huewy supports"
               >
-                {platforms.map((platform) => (
+                {platforms.map((platform) =>
+                  platform.slug === "google" ? (
                   <a
-                    className={`hero-platform ${platform.slug === "trustpilot" ? "trustpilot-mark" : ""}`}
-                    href={`/platform/${platform.slug}`}
+                    className="hero-platform"
+                    href="/platform/google"
                     key={platform.slug}
                     aria-label={`Learn how Huewy works with ${platform.name}`}
+                  >
+                    <img src={platform.logo} alt="" />
+                  </a>
+                  ) : (
+                  <span
+                    className={`hero-platform ${platform.slug === "trustpilot" ? "trustpilot-mark" : ""}`}
+                    key={platform.slug}
+                    style={{ opacity: 0.4, cursor: "default" }}
+                    title={`${platform.name} — coming soon`}
                   >
                     {platform.slug === "trustpilot" ? (
                       <span aria-hidden="true">★</span>
                     ) : (
                       <img src={platform.logo} alt="" />
                     )}
-                  </a>
-                ))}
+                  </span>
+                  )
+                )}
                 <button
                   className="hero-platform hero-platform-add"
                   type="button"
@@ -659,6 +670,7 @@ export default function HuewyLanding({ waitlistCount }: { waitlistCount: number 
                   <span aria-hidden="true">+</span>
                 </button>
               </div>
+              <p style={{ marginTop: 10, color: "var(--ink-3)", fontSize: 12, textAlign: "center" }}>Google available now. More platforms coming.</p>
             </div>
           </div>
         </section>
@@ -688,10 +700,11 @@ export default function HuewyLanding({ waitlistCount }: { waitlistCount: number 
               </p>
             </div>
             <div className="platform-grid">
-              {platforms.map((platform) => (
+              {platforms.map((platform) =>
+                platform.slug === "google" ? (
                 <a
                   className="platform-card"
-                  href={`/platform/${platform.slug}`}
+                  href="/platform/google"
                   key={platform.slug}
                 >
                   <span className="platform-icon">
@@ -703,7 +716,21 @@ export default function HuewyLanding({ waitlistCount }: { waitlistCount: number 
                     ↗
                   </span>
                 </a>
-              ))}
+                ) : (
+                <div
+                  className="platform-card"
+                  key={platform.slug}
+                  style={{ opacity: 0.5, pointerEvents: "none" }}
+                >
+                  <span className="platform-icon">
+                    <img src={platform.logo} alt={`${platform.name} logo`} />
+                  </span>
+                  <strong>{platform.name}</strong>
+                  <p>{platform.description}</p>
+                  <span style={{ marginTop: "auto", color: "var(--ink-3)", fontSize: 12, fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase" }}>Coming soon</span>
+                </div>
+                )
+              )}
             </div>
           </div>
         </section>
