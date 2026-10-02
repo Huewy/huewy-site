@@ -38,8 +38,10 @@ function GuideForm() {
       const body = new URLSearchParams();
       body.set("email", email);
       body.set("formSource", "guide");
-      const utm = searchParams.get("utm_source");
-      if (utm) body.set("utm_source", utm);
+      const utmSource = searchParams.get("utm_source");
+      if (utmSource) body.set("utmSource", utmSource);
+      const utmMedium = searchParams.get("utm_medium");
+      if (utmMedium) body.set("utmMedium", utmMedium);
       const res = await fetch(LOOPS_FORM_URL, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
