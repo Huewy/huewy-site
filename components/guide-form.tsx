@@ -2,6 +2,7 @@
 
 import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { joinWaitlist } from "@/app/actions/waitlist";
 
 const LOOPS_FORM_URL =
   "https://app.loops.so/api/newsletter-form/cmucdscsa0zff0izrsbi29xuh";
@@ -48,6 +49,17 @@ function GuideForm() {
         body: body.toString(),
       });
       if (!res.ok) throw new Error("Something went wrong. Please try again.");
+      // Also record the lead in Supabase so guide sign-ups count toward the
+      // waitlist. Loops already has them, so a Supabase failure must not block
+      // the visitor; it's logged server-side by joinWaitlist.
+      try {
+        const fd = new FormData();
+        fd.set("email", email);
+        fd.set("source", utmSource ? `guide-${utmSource}` : "guide");
+        await joinWaitlist(null, fd);
+      } catch (supaErr) {
+        console.error("[guide] Supabase insert threw:", supaErr);
+      }
       router.push("/guide/thanks");
     } catch (err) {
       setError(
