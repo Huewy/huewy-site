@@ -1,0 +1,9 @@
+{
+  "name": "huewy-carousel-tools",
+  "private": true,
+  "dependencies": {
+    "@fontsource/inter": "^5.0.0",
+    "@fontsource/nunito": "^5.0.0",
+    "playwright": "1.63.0"
+  }
+}
