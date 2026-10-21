@@ -24,6 +24,15 @@ const HUEWY_WORDMARK = "/brand/huewy-wordmark-large.png";
 const HUEWY_ICON = "/brand/huewy-icon.png";
 const CONTACT_EMAIL = "hello@huewy.com";
 
+const platforms = [
+  { name: "Google", slug: "google", live: true },
+  { name: "Yelp", slug: "yelp", live: false },
+  { name: "Trustpilot", slug: "trustpilot", live: false },
+  { name: "Tripadvisor", slug: "tripadvisor", live: false },
+  { name: "Airbnb", slug: "airbnb", live: false },
+  { name: "Glassdoor", slug: "glassdoor", live: false },
+];
+
 const steps = [
   {
     icon: Search,
@@ -327,6 +336,21 @@ export default function HuewyLanding({ waitlistCount }: { waitlistCount: number 
           <div className="hero-visual">
             <ProductPreview />
             <p className="nm-preview-caption">Illustrative preview. Names are made up. Huewy isn&apos;t live yet.</p>
+            <div className="hero-platforms" role="list" aria-label="Review platforms">
+              {platforms.map((platform) => (
+                <span
+                  role="listitem"
+                  className={`hero-platform${platform.live ? "" : " is-soon"}`}
+                  key={platform.slug}
+                  title={platform.live ? `${platform.name}: available at launch` : `${platform.name}: coming soon`}
+                >
+                  <img src={`/platforms/${platform.slug}.svg`} alt={platform.name} />
+                </span>
+              ))}
+            </div>
+            <p className="nm-preview-caption">
+              Google at launch. Yelp, Trustpilot, Tripadvisor, Airbnb and Glassdoor coming soon.
+            </p>
           </div>
         </div>
       </section>
@@ -554,6 +578,9 @@ export default function HuewyLanding({ waitlistCount }: { waitlistCount: number 
             <a href="/terms">Terms</a>
           </div>
         </div>
+        <p className="container nm-trademarks">
+          Google, Yelp, Trustpilot, Tripadvisor, Airbnb and Glassdoor are trademarks of their owners. Huewy is not affiliated with or endorsed by them.
+        </p>
       </footer>
 
       {waitlistOpen && (

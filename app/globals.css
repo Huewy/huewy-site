@@ -130,3 +130,8 @@
   .nm-preview-body{padding:16px}
   .nm-review-top em{font-size:9px}
 }
+
+.hero-platform.is-soon{opacity:.55;box-shadow:none}
+.hero-platform.is-soon:hover{transform:none}
+.nm-trademarks{margin-top:12px;color:var(--ink-3);font-size:11px;line-height:1.5}
+@media(max-width:600px){.hero-platforms{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}.hero-platform{width:46px;height:46px}.hero-platform img{width:24px;height:24px}}
