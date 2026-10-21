@@ -25,7 +25,7 @@ const HUEWY_ICON = "/brand/huewy-icon.png";
 const CONTACT_EMAIL = "hello@huewy.com";
 
 const platforms = [
-  { name: "Google", slug: "google", live: true },
+  { name: "Google Business Profile", slug: "google-business", live: true },
   { name: "Yelp", slug: "yelp", live: true },
   { name: "Trustpilot", slug: "trustpilot", live: true },
   { name: "Tripadvisor", slug: "tripadvisor", live: true },
