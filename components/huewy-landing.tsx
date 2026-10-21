@@ -26,18 +26,18 @@ const CONTACT_EMAIL = "hello@huewy.com";
 
 const platforms = [
   { name: "Google", slug: "google", live: true },
-  { name: "Yelp", slug: "yelp", live: false },
-  { name: "Trustpilot", slug: "trustpilot", live: false },
-  { name: "Tripadvisor", slug: "tripadvisor", live: false },
-  { name: "Airbnb", slug: "airbnb", live: false },
-  { name: "Glassdoor", slug: "glassdoor", live: false },
+  { name: "Yelp", slug: "yelp", live: true },
+  { name: "Trustpilot", slug: "trustpilot", live: true },
+  { name: "Tripadvisor", slug: "tripadvisor", live: true },
+  { name: "Airbnb", slug: "airbnb", live: true },
+  { name: "Glassdoor", slug: "glassdoor", live: true },
 ];
 
 const steps = [
   {
     icon: Search,
     title: "Scan",
-    body: "Huewy checks your Google reviews and looks for ones that may break Google's policies.",
+    body: "Huewy checks your reviews and looks for ones that may break the platform's policies.",
   },
   {
     icon: Bell,
@@ -52,31 +52,31 @@ const steps = [
   {
     icon: UserCheck,
     title: "A person checks and files",
-    body: "A Huewy team member reviews it. If there's a genuine policy breach, they file it through Google's official process. If not, we decline it.",
+    body: "A Huewy team member reviews it. If there's a genuine policy breach, they file it through the platform's official process. If not, we decline it.",
   },
   {
     icon: ChartLine,
     title: "Track the result",
-    body: "See where each report is up to. Google makes the final decision.",
+    body: "See where each report is up to. The platform makes the final decision.",
   },
 ];
 
 const whyItems = [
   {
     title: "White-hat only",
-    body: "We only use Google's official reporting channels. No fake accounts, no mass flagging, no workarounds.",
+    body: "We only use each platform's official reporting channels. No fake accounts, no mass flagging, no workarounds.",
   },
   {
     title: "A person checks every filing",
-    body: "Nothing is filed automatically. A Huewy team member reviews every report before it goes to Google.",
+    body: "Nothing is filed automatically. A Huewy team member reviews every report before it's filed.",
   },
   {
     title: "We never ask for your password",
-    body: "You won't be asked to hand over your Google login.",
+    body: "You won't be asked to hand over your passwords.",
   },
   {
     title: "We say no when we should",
-    body: "If a review doesn't genuinely breach Google's policies, we won't report it, even if it hurts.",
+    body: "If a review doesn't genuinely breach the platform's policies, we won't report it, even if it hurts.",
   },
   {
     title: "Month to month",
@@ -87,19 +87,23 @@ const whyItems = [
 const faqs: [string, string][] = [
   [
     "Can you guarantee removal?",
-    "No, and nobody can. Google decides. We only report reviews that appear to break Google's rules, and you only pay for removals that happen.",
+    "No, and nobody can. The platform decides. We only report reviews that appear to break its rules, and you only pay for removals that happen.",
   ],
   [
     "How does filing work?",
-    "When Huewy flags a review, you can request a report in one tap. You then have 24 hours to cancel. A Huewy team member checks the review against Google's policies. If it appears to breach them, they file a report through Google's official process. If it doesn't, we decline it and let you know. You can track each report in Huewy, and Google makes the final call.",
+    "When Huewy flags a review, you can request a report in one tap. You then have 24 hours to cancel. A Huewy team member checks the review against that platform's policies. If it appears to breach them, they file a report through the platform's official process. If it doesn't, we decline it and let you know. You can track each report in Huewy, and the platform makes the final call.",
   ],
   [
     "What happens to genuine negative reviews?",
-    "We won't report them. A genuine negative review, even a harsh one, doesn't break Google's rules. Instead, Huewy helps you write a calm, useful reply, and regular review requests mean more of your customers get to have their say.",
+    "We won't report them. A genuine negative review, even a harsh one, doesn't break platform rules. Instead, Huewy helps you write a calm, useful reply, and regular review requests mean more of your customers get to have their say.",
   ],
   [
     "Is this allowed?",
-    "Yes. Huewy uses Google's own reporting process, the same one available to any business owner. Our review requests go to every customer, never only the happy ones, and we never offer incentives for reviews.",
+    "Yes. Huewy uses each platform's own reporting process, the same one available to any business owner. Our review requests go to every customer, never only the happy ones, and we never offer incentives for reviews.",
+  ],
+  [
+    "Which platforms does Huewy cover?",
+    "At launch: Google, Yelp, Trustpilot, Tripadvisor, Airbnb and Glassdoor. We'll add more, including niche and industry-specific sites, based on what our customers need. If yours isn't listed, tell us when you join the waitlist.",
   ],
   [
     "How much will it cost?",
@@ -107,7 +111,7 @@ const faqs: [string, string][] = [
   ],
   [
     "When can I use Huewy?",
-    "Huewy is launching soon, starting with Google reviews. Join the waitlist and we'll let you know when early access opens.",
+    "Huewy is launching soon. Join the waitlist and we'll let you know when early access opens.",
   ],
 ];
 
@@ -134,7 +138,7 @@ function ProductPreview() {
         <div className="nm-preview-body">
           <div className="nm-preview-head">
             <div>
-              <small>Google reviews</small>
+              <small>All reviews</small>
               <strong>Wattlebrook Bakehouse</strong>
             </div>
             <span className="nm-chip">Scanned today</span>
@@ -305,7 +309,7 @@ export default function HuewyLanding({ waitlistCount }: { waitlistCount: number 
         <div className="container hero-grid">
           <div className="hero-copy">
             <div className="eyebrow">
-              <span /> Launching soon · Early access · Google reviews
+              <span /> Launching soon · Early access
             </div>
             <h1>
               More genuine reviews.
@@ -314,11 +318,11 @@ export default function HuewyLanding({ waitlistCount }: { waitlistCount: number 
             </h1>
             <p className="lead nm-lead">
               Huewy asks every customer for a review, and reports the reviews
-              that break Google&apos;s rules.
+              that break the rules.
             </p>
             <p className="nm-guarantee" role="note">
               <ShieldCheck aria-hidden="true" />
-              <span>Removal is never guaranteed — Google decides.</span>
+              <span>Removal is never guaranteed — the platform decides.</span>
             </p>
             <div className="hero-waitlist-row">
               <button className="button primary" type="button" onClick={() => openWaitlist()}>
@@ -336,20 +340,20 @@ export default function HuewyLanding({ waitlistCount }: { waitlistCount: number 
           <div className="hero-visual">
             <ProductPreview />
             <p className="nm-preview-caption">Illustrative preview. Names are made up. Huewy isn&apos;t live yet.</p>
-            <div className="hero-platforms" role="list" aria-label="Review platforms">
+            <div className="hero-platforms" role="list" aria-label="Platforms Huewy covers at launch">
               {platforms.map((platform) => (
                 <span
                   role="listitem"
                   className={`hero-platform${platform.live ? "" : " is-soon"}`}
                   key={platform.slug}
-                  title={platform.live ? `${platform.name}: available at launch` : `${platform.name}: coming soon`}
+                  title={platform.name}
                 >
                   <img src={`/platforms/${platform.slug}.svg`} alt={platform.name} />
                 </span>
               ))}
             </div>
             <p className="nm-preview-caption">
-              Google at launch. Yelp, Trustpilot, Tripadvisor, Airbnb and Glassdoor coming soon.
+              Launching on Google, Yelp, Trustpilot, Tripadvisor, Airbnb and Glassdoor. More platforms to follow.
             </p>
           </div>
         </div>
@@ -374,18 +378,18 @@ export default function HuewyLanding({ waitlistCount }: { waitlistCount: number 
                 <li><QrCode /> Review requests by link, QR code, SMS and email</li>
                 <li><Smartphone /> Sent to every customer, not just the happy ones</li>
                 <li><MessageSquareText /> AI-drafted replies you can edit before posting</li>
-                <li><Check /> No incentives, ever. That&apos;s against Google&apos;s rules</li>
+                <li><Check /> No incentives, ever. Review platforms don&apos;t allow it</li>
               </ul>
             </article>
             <article className="nm-pillar">
               <div className="nm-pillar-icon"><Flag /></div>
               <h3>Report the ones that break the rules</h3>
               <p>
-                Huewy scans your Google reviews and flags the ones that may
-                breach Google&apos;s policies, like fake or abusive reviews.
+                Huewy watches your reviews across platforms and flags the ones
+                that may breach policy, like fake or abusive reviews.
               </p>
               <ul className="nm-list">
-                <li><Search /> Flags reviews that may breach Google&apos;s policies</li>
+                <li><Search /> Flags reviews that may breach platform policies</li>
                 <li><Flag /> Request a report in one tap, with 24 hours to cancel</li>
                 <li><UserCheck /> A Huewy team member checks and files every report</li>
                 <li><Check /> You pay only if it&apos;s removed, or it&apos;s included in your plan</li>
@@ -418,8 +422,8 @@ export default function HuewyLanding({ waitlistCount }: { waitlistCount: number 
             })}
           </ol>
           <p className="nm-honest">
-            <strong>Google decides.</strong> Huewy reports reviews that appear to
-            break Google&apos;s rules. We can&apos;t make Google remove anything,
+            <strong>The platform decides.</strong> Huewy reports reviews that appear to
+            break the platform&apos;s rules. We can&apos;t make any platform remove anything,
             and we don&apos;t report reviews just because they&apos;re negative.
           </p>
         </div>
@@ -551,7 +555,7 @@ export default function HuewyLanding({ waitlistCount }: { waitlistCount: number 
           <h2>Get early access.</h2>
           <p>
             Huewy is opening early access to a small group of Australian
-            businesses, starting with Google reviews.
+            businesses.
           </p>
           <div className="waitlist-count">
             {waitlistCount >= 50 ? (

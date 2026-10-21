@@ -8,7 +8,7 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Huewy — More genuine reviews. Fewer fake and abusive ones.',
   description:
-    "Huewy asks every customer for a review, and reports the reviews that break Google's rules. Removal is never guaranteed — Google decides. Launching soon for Australian businesses.",
+    "Huewy asks every customer for a review, and reports the reviews that break the rules on Google, Yelp, Trustpilot and more. Removal is never guaranteed — the platform decides. Launching soon for Australian businesses.",
   metadataBase: new URL('https://huewy.com'),
   icons: {
     icon: [
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Huewy — More genuine reviews. Fewer fake and abusive ones.',
     description:
-      "Asks every customer for a review, and reports the reviews that break Google's rules. Removal is never guaranteed — Google decides.",
+      "Asks every customer for a review, and reports the reviews that break the rules on Google, Yelp, Trustpilot and more. Removal is never guaranteed — the platform decides.",
     url: 'https://huewy.com',
     siteName: 'Huewy',
     images: [{ url: '/og.png', width: 1200, height: 630 }],
